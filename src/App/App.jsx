@@ -73,14 +73,22 @@ function App() {
     )))
   }
 
-  const updateToy = async (toyData) => {}
+  const updateToy = async (toyData) => {
+    const updatedToy = await toyService.update(toyData)
+    setToys(toys.map((toy) => (
+      toy.id === updatedToy.id ? updatedToy : toy
+    )))
+  }
 
   const deleteCat = async (id) => {
     await catService.deleteOne(id)
     setCats(cats.filter(cat => cat.id !== parseInt(id)))
   }
 
-  const deleteToy = async (id) => {}
+  const deleteToy = async (id) => {
+    await toyService.deleteOne(id)
+    setToys(toys.filter(toy => toy.id !== parseInt(id)))
+  }
 
   const handleLogout = () => {
     authService.logout()
